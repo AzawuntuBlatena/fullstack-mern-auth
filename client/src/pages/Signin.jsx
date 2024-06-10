@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signinStart,signinFailure,signinSuccess } from "../redux/user/userSlice";
+import { signInStart,signInFailure,signInSuccess } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import AOuth from "../components/AOuth";
 
@@ -19,7 +19,7 @@ export default function Signin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      dispatch(signinStart())
+      dispatch(signInStart())
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: {
@@ -32,10 +32,10 @@ export default function Signin() {
         throw new Error(errorData.message || 'Something went wrong');
       }
       const data = await res.json();
-      dispatch(signinSuccess(data))
+      dispatch(signInSuccess(data))
       navigate("/");
     } catch (error) {
-      dispatch(signinFailure(error.message));
+      dispatch(signInFailure(error.message));
     }
   };
 
